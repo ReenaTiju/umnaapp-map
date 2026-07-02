@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AppLogo from '../components/AppLogo'
 import LandingInstallPopup from '../components/LandingInstallPopup'
@@ -156,6 +156,7 @@ const highlights = [
 const LandingPage = () => {
   const { isAuthenticated } = useAuth()
   const navigate = useNavigate()
+  const [showBhavishyaPopup, setShowBhavishyaPopup] = useState(true)
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -652,6 +653,39 @@ const LandingPage = () => {
           </div>
         </div>
       </footer>
+
+      {showBhavishyaPopup && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="bhavishya-popup-title"
+        >
+          <div
+            className="absolute inset-0 bg-slate-950/70 backdrop-blur-sm animate-fade-in"
+            onClick={() => setShowBhavishyaPopup(false)}
+            aria-hidden
+          />
+          <div className="relative w-full max-w-sm rounded-3xl border border-white/15 bg-gradient-to-b from-slate-800/95 to-slate-900/95 p-8 text-center shadow-2xl shadow-black/50 ring-1 ring-white/10 animate-slide-up">
+            <button
+              type="button"
+              onClick={() => setShowBhavishyaPopup(false)}
+              className="absolute top-4 right-4 inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white transition-colors"
+              aria-label="Close"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} aria-hidden>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <h2
+              id="bhavishya-popup-title"
+              className="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-sky-300 via-cyan-200 to-emerald-300 bg-clip-text text-transparent"
+            >
+              bhavishya
+            </h2>
+          </div>
+        </div>
+      )}
 
       <LandingInstallPopup />
 
